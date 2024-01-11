@@ -1,0 +1,34 @@
+def dydt(y,t):
+    return (-2*y*t)
+
+def rungeKutta(y0,t,y,h):
+    n = int((y-y0)/h)
+    y = y0
+    for i in range (1,n+1):
+        k1 = h*dydt(y0,t)
+        k2 = h*dydt(y0+0.5*h,t+0.5*k1)
+        k3 = h*dydt(y0+0.5*h,t+0.5*k2)
+        k4 = h*dydt(y0+h,t+k3)
+        
+        t = t+(1/6)*(k1+2*k2+2*k3+k4)
+        
+        y0 = y0+h
+        
+    return t
+
+y0 = 0
+t = 1
+y = 5
+h = 2
+
+print('The value of t at y is:',rungeKutta(y0,t,y,h))
+
+from matplotlib import pyplot as plt
+
+plt.figure()
+plt.plot(y,t,label = 'value')
+plt.xlabel('y value')
+plt.ylabel('t value')
+plt.title('ODE')
+plt.legend(loc=0)
+plt.show()
